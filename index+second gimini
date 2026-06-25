@@ -1,0 +1,139 @@
+[6/25/2026 10:46 PM] Keum Vichet -កឺម វិចិត្ត: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Custom Cursor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #121212;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow: hidden;
+            /* Hides the default browser cursor */
+            cursor: none; 
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        p {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        /* The core center dot */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00f2fe;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none; /* Crucial: stops the dot from blocking clicks */
+        }
+
+        /* The trailing outer circle */
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 242, 254, 0.4);
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9998;
+            pointer-events: none;
+            /* Controls how smoothly the outer ring catches up to the center dot */
+            transition: transform 0.1s ease-out, background-color 0.3s, border-color 0.3s;
+        }
+
+        /* Hover effect style triggered via JS */
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.6);
+            background-color: rgba(79, 172, 254, 0.2);
+            border-color: #4facfe;
+        }
+
+        /* Interactive Button */
+        .hover-target {
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #00f2fe;
+            background: transparent;
+            border: 2px solid #00f2fe;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            /* Ensures default cursor stays hidden over the button too */
+            cursor: none; 
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+
+        .hover-target:hover {
+            background: #00f2fe;
+            color: #121212;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Animation Website</h1>
+    <p>Move your mouse around to see the custom cursor effect.</p>
+    
+    <button class="hover-target">Hover Over Me</button>
+
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <script>
+        const cursorDot = document.querySelector("[data-cursor-dot]");
+        const cursorOutline = document.querySelector("[data-cursor-outline]");
+        const hoverTarget = document.querySelector(".hover-target");
+
+        // Track and update coordinates instantly on mouse move
+        window.addEventListener("mousemove", function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Move the center dot
+            cursorDot.style.left = ${posX}px;
+            cursorDot.style.top = ${posY}px;
+
+            // Move the outer circle
+            cursorOutline.style.left = ${posX}px;
+            cursorOutline.style.top = ${posY}px;
+        });
+
+        // Add the expansion class when hovering over the button
+        hoverTarget.addEventListener("mouseenter", () => {
+            cursorOutline.classList.add("cursor-hover");
+        });
+[6/25/2026 10:46 PM] Keum Vichet -កឺម វិចិត្ត: // Remove the expansion class when leaving the button
+        hoverTarget.addEventListener("mouseleave", () => {
+            cursorOutline.classList.remove("cursor-hover");
+        });
+    </script>
+</body>
+</html>
